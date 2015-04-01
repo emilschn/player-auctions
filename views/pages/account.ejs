@@ -1,0 +1,9 @@
+<% include ../partials/header %>
+<div class="blankslate">
+	<h1>Mon compte</h1>
+	
+	<strong>id</strong>: <%= user._id %><br>
+	<strong>username</strong>: <%= user.local.username %><br>
+	<strong>password</strong>: <%= user.local.password %>
+</div>
+<% include ../partials/footer %>

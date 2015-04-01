@@ -1,0 +1,26 @@
+<% include ../partials/header %>
+<div class="blankslate">
+	<h1>Connexion</h1>
+	
+	<% if (message.length > 0) { %>
+        <div class="flash flash-error"><%= message %></div>
+	<% } %>
+
+	<form action="/connexion" method="POST">
+		<dl class="form">
+			<dt><label for="username">Identifiant : </label></dt>
+			<dd><input type="text" name="username" class="input-large" placeholder="Identifiant" /></dd>
+		</dl>
+		<dl class="form">
+			<dt><label for="password">Mot de passe : </label></dt>
+			<dd><input type="password" name="password" class="input-large" /></dd>
+		</dl>
+		<button class="btn" type="submit">Connexion</button>
+	</form>
+	
+	<hr />
+
+	<p>Pas encore de compte ? <a href="/inscription">Inscription</a></p>
+	<p>Ou retour à l'<a href="/">accueil</a>.</p>
+</div>
+<% include ../partials/footer %>
