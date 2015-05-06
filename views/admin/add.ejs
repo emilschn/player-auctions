@@ -2,18 +2,122 @@
 <div class="blankslate">
 	<h1>Ajouter des données</h1>
 	
-	<h2>Pays</h2>
-	<ul>
-		<% countryList.forEach(function(country){ %>
-			<li><%= country.name %></li>
-		<% }) %>
-	</ul>
-	<form action="/admin/ajouter/pays" method="POST">
-		<dl class="form">
-			<dt><label for="name">Nom : </label></dt>
-			<dd><input type="text" name="name" class="input-large" placeholder="Nom du pays" /></dd>
-		</dl>
-		<button class="btn" type="submit">Ajouter pays</button>
-	</form>
+	<div class="blankslate">
+		<h2>Pays</h2>
+		<ul>
+			<% countryList.forEach(function(country){ %>
+				<li><%= country.name %></li>
+			<% }) %>
+		</ul>
+		<form action="/admin/ajouter/pays" method="POST">
+			<dl class="form">
+				<dt><label for="name">Nom : </label></dt>
+				<dd><input type="text" name="name" class="input-large" placeholder="Nom du pays" /></dd>
+			</dl>
+			<button class="btn" type="submit">Ajouter</button>
+		</form>
+	</div>
+	
+	<div class="blankslate">
+		<h2>Divisions</h2>
+		<ul>
+			<% divisionList.forEach(function(division){ %>
+				<li><%= division.name %> (<%= division.country %>)</li>
+			<% }) %>
+		</ul>
+		<form action="/admin/ajouter/division" method="POST">
+			<dl class="form">
+				<dt><label for="name">Nom : </label></dt>
+				<dd><input type="text" name="name" class="input-large" placeholder="Nom de la division" /></dd>
+			</dl>
+			<dl class="form">
+				<dt><label for="country">Pays : </label></dt>
+				<dd><select name="country">
+					<% countryList.forEach(function(country){ %>
+						<option value="<%= country._id %>"><%= country.name %></option>
+					<% }) %>
+				</select></dd>
+			</dl>
+			<button class="btn" type="submit">Ajouter</button>
+		</form>
+	</div>
+	
+	<div class="blankslate">
+		<h2>Clubs</h2>
+		<ul>
+			<% clubList.forEach(function(club){ %>
+				<li><%= club.name %> (<%= club.division %>)</li>
+			<% }) %>
+		</ul>
+		<form action="/admin/ajouter/club" method="POST">
+			<dl class="form">
+				<dt><label for="name">Nom : </label></dt>
+				<dd><input type="text" name="name" class="input-large" placeholder="Nom du club" /></dd>
+			</dl>
+			<dl class="form">
+				<dt><label for="division">Division : </label></dt>
+				<dd><select name="division">
+					<% divisionList.forEach(function(division){ %>
+						<option value="<%= division._id %>"><%= division.name %></option>
+					<% }) %>
+				</select></dd>
+			</dl>
+			<button class="btn" type="submit">Ajouter</button>
+		</form>
+	</div>
+	
+	<div class="blankslate">
+		<h2>Positions</h2>
+		<ul>
+			<% positionList.forEach(function(position){ %>
+				<li><%= position.name %> (<%= position.division %>)</li>
+			<% }) %>
+		</ul>
+		<form action="/admin/ajouter/position" method="POST">
+			<dl class="form">
+				<dt><label for="name">Nom : </label></dt>
+				<dd><input type="text" name="name" class="input-large" placeholder="Nom de la position" /></dd>
+			</dl>
+			<button class="btn" type="submit">Ajouter</button>
+		</form>
+	</div>
+	
+	<!--
+	<div class="blankslate">
+		<h2>Joueur</h2>
+		<ul>
+			<% playerList.forEach(function(player){ %>
+				<li><%= player.lastname %> <%= player.firstname %> (<%= player.club %>)</li>
+			<% }) %>
+		</ul>
+		<form action="/admin/ajouter/joueur" method="POST">
+			<dl class="form">
+				<dt><label for="firstname">Prénom : </label></dt>
+				<dd><input type="text" name="firstname" class="input-large" placeholder="Prénom du joueur" /></dd>
+			</dl>
+			<dl class="form">
+				<dt><label for="lastname">Nom : </label></dt>
+				<dd><input type="text" name="lastname" class="input-large" placeholder="Nom du joueur" /></dd>
+			</dl>
+			<dl class="form">
+				<dt><label for="country">Pays : </label></dt>
+				<dd><select name="country">
+					<% countryList.forEach(function(country){ %>
+						<option value="<%= country._id %>"><%= country.name %></option>
+					<% }) %>
+				</select></dd>
+			</dl>
+			<dl class="form">
+				<dt><label for="club">Club : </label></dt>
+				<dd><select name="club">
+					<% clubList.forEach(function(club){ %>
+						<option value="<%= club._id %>"><%= club.name %></option>
+					<% }) %>
+				</select></dd>
+			</dl>
+			<button class="btn" type="submit">Ajouter</button>
+		</form>
+	</div>
+	-->
 </div>
 <% include ../partials/footer %>

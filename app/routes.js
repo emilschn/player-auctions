@@ -42,7 +42,13 @@ module.exports = function(app, passport) {
 	app.get('/admin/ajouter', isLoggedIn, function(req, res) {
 		var Country = require('./model/country');
 		Country.find(function(err, countryList) {
-			res.render('admin/add.ejs', {user: req.user, countryList: countryList});
+			var Division = require('./model/division');
+			Division.find(function(err, divisionList) {
+				var Club = require('./model/club');
+				Club.find(function(err, clubList) {
+					res.render('admin/add.ejs', {user: req.user, countryList: countryList, divisionList: divisionList, clubList: clubList});
+				});
+			});
 		});
 	});
 	app.post('/admin/ajouter/pays', function(req, res) {
@@ -53,6 +59,26 @@ module.exports = function(app, passport) {
 		} else {
 			res.setHeader('Content-Type', 'text/plain');
 			res.send(404, 'Champ nom vide !');
+		}
+	});
+	app.post('/admin/ajouter/division', function(req, res) {
+		var Division = require('./model/division');
+		var newDivision = new Division();
+		if (newDivision.add(req.param('name'), req.param('country')) !== 0) {
+			res.redirect('/admin/ajouter');
+		} else {
+			res.setHeader('Content-Type', 'text/plain');
+			res.send(404, 'Il y a au moins un champ vide !');
+		}
+	});
+	app.post('/admin/ajouter/club', function(req, res) {
+		var Club = require('./model/club');
+		var newClub = new Club();
+		if (newClub.add(req.param('name'), req.param('division')) !== 0) {
+			res.redirect('/admin/ajouter');
+		} else {
+			res.setHeader('Content-Type', 'text/plain');
+			res.send(404, 'Il y a au moins un champ vide !');
 		}
 	});
 //FIN BACK-OFFICE
