@@ -36,6 +36,28 @@ module.exports = function(app, passport) {
 //FIN LOGIN MANAGEMENT
 //****************************************
 
+
+//****************************************
+//BACK-OFFICE
+	app.get('/admin/ajouter', isLoggedIn, function(req, res) {
+		var Country = require('./model/country');
+		Country.find(function(err, countryList) {
+			res.render('admin/add.ejs', {user: req.user, countryList: countryList});
+		});
+	});
+	app.post('/admin/ajouter/pays', function(req, res) {
+		var Country = require('./model/country');
+		var newCountry = new Country();
+		if (newCountry.add(req.param('name')) !== 0) {
+			res.redirect('/admin/ajouter');
+		} else {
+			res.setHeader('Content-Type', 'text/plain');
+			res.send(404, 'Champ nom vide !');
+		}
+	});
+//FIN BACK-OFFICE
+//****************************************
+
 	app.get('/moncompte', isLoggedIn, function(req, res) {
 		res.render('pages/account.ejs', {user : req.user});
 

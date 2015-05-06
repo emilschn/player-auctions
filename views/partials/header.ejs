@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="utf-8"/>
 		<title>Player auctions</title>
-		<link media="all" rel="stylesheet" href="assets/primer.css" />
-		<link media="all" rel="stylesheet" href="assets/style.css" />
+		<link media="all" rel="stylesheet" href="/assets/primer.css" />
+		<link media="all" rel="stylesheet" href="/assets/style.css" />
 	</head>
 	
 	<body>
@@ -19,6 +19,8 @@
 					<% if (user) { %>
 						<a class="menu-item" href="/moncompte">Mon compte</a>
 						<a class="menu-item" href="/deconnexion">Déconnexion</a>
+						<span class="menu-heading">Admin</span>
+						<a class="menu-item" href="/admin/ajouter">Ajouter</a>
 					<% } else { %>
 						<a class="menu-item" href="/connexion">Connexion</a>
 						<a class="menu-item" href="/inscription">Inscription</a>

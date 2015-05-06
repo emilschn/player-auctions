@@ -28,7 +28,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-//require('./app/model/user.js')(app, passport);
 require('./app/routes.js')(app, passport);
 
 app.listen(dbConf.port);

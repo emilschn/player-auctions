@@ -1,0 +1,19 @@
+<% include ../partials/header %>
+<div class="blankslate">
+	<h1>Ajouter des données</h1>
+	
+	<h2>Pays</h2>
+	<ul>
+		<% countryList.forEach(function(country){ %>
+			<li><%= country.name %></li>
+		<% }) %>
+	</ul>
+	<form action="/admin/ajouter/pays" method="POST">
+		<dl class="form">
+			<dt><label for="name">Nom : </label></dt>
+			<dd><input type="text" name="name" class="input-large" placeholder="Nom du pays" /></dd>
+		</dl>
+		<button class="btn" type="submit">Ajouter pays</button>
+	</form>
+</div>
+<% include ../partials/footer %>
