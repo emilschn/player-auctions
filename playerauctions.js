@@ -7,6 +7,7 @@ var express = require('express'),
 //    morgan = require('morgan'), //Log requests to the console
     cookieParser = require('cookie-parser'), //Cookies (for auth)
     bodyParser = require('body-parser'), //Get info from html forms
+    async = require('async'),
     session = require('express-session'); //Sessions
 
 //DB
@@ -28,6 +29,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-require('./app/routes.js')(app, passport);
+require('./app/routes.js')(app, passport, async);
 
 app.listen(dbConf.port);

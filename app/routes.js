@@ -1,4 +1,4 @@
-module.exports = function(app, passport) {
+module.exports = function(app, passport, async) {
 
 //****************************************
 //LOGIN MANAGEMENT
@@ -26,7 +26,7 @@ module.exports = function(app, passport) {
 
 //****************************************
 //BACK-OFFICE
-	app.get('/admin/ajouter', isLoggedIn, function(req, res) { require('./controller/admin-add.js').execute(req, res); });
+	app.get('/admin/ajouter', isLoggedIn, function(req, res) { require('./controller/admin-add.js').execute(req, res, async); });
 	app.post('/admin/ajouter/pays', isLoggedIn, function(req, res) { require('./controller/admin-add.js').postCountry(req, res); });
 	app.post('/admin/ajouter/division', isLoggedIn, function(req, res) { require('./controller/admin-add.js').postDivision(req, res); });
 	app.post('/admin/ajouter/club', isLoggedIn, function(req, res) { require('./controller/admin-add.js').postClub(req, res); });
