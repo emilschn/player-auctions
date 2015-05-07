@@ -111,14 +111,35 @@ module.exports = function(app, passport) {
 //FIN BACK-OFFICE
 //****************************************
 
+//****************************************
+//COMPTE UTILISATEUR
+	app.post('/monequipe/creer', function(req, res) {
+		var Team = require('./model/team');
+		var newTeam = new Team();
+		if (newTeam.add(req.param('name'), req.user) !== 0) {
+			res.redirect('/monequipe');
+		} else {
+			res.setHeader('Content-Type', 'text/plain');
+			res.send(404, 'Il y a au moins un champ vide !');
+		}
+	});
+
 	app.get('/moncompte', isLoggedIn, function(req, res) {
 		res.render('pages/account.ejs', {user : req.user});
+
+	}).get('/monequipe', isLoggedIn, function(req, res) {
+		var Team = require('./model/team');
+		Team.findOne({'_id': req.user.team}, function(err, userTeam) {
+			res.render('pages/team.ejs', {user : req.user, userTeam: userTeam});
+		});
 
 	}).use(function(req, res, next){
 		res.setHeader('Content-Type', 'text/plain');
 		res.send(404, 'Page introuvable !');
 
 	});
+//FIN COMPTE UTILISATEUR
+//****************************************
 };
 
 // route middleware to make sure a user is logged in

@@ -17,8 +17,10 @@
 				<nav class="menu column one-fifth">
 					<a class="menu-item" href="/">Accueil</a>
 					<% if (user) { %>
-						<a class="menu-item" href="/moncompte">Mon compte</a>
 						<a class="menu-item" href="/deconnexion">Déconnexion</a>
+						<span class="menu-heading">Mon compte</span>
+						<a class="menu-item" href="/monequipe">Mon équipe</a>
+						<a class="menu-item" href="/moncompte">Paramètres</a>
 						<span class="menu-heading">Admin</span>
 						<a class="menu-item" href="/admin/ajouter">Ajouter</a>
 					<% } else { %>

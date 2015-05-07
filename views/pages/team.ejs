@@ -1,0 +1,50 @@
+<% include ../partials/header %>
+<div class="blankslate">
+	<h1>Mon équipe</h1>
+	
+	<% if (user.team == undefined) { %>
+		<div class="flash flash-error">Votre équipe n'a pas encore été créée !</div>
+		<form action="/monequipe/creer" method="POST">
+			<dl class="form">
+				<dt><label for="name">Nom : </label></dt>
+				<dd><input type="text" name="name" class="input-large" placeholder="Nom de l'équipe" /></dd>
+			</dl>
+			<button class="btn" type="submit">Créer</button>
+		</form>
+	
+	<% } else { %>
+		
+		<h2>Nom</h2>
+		<%= userTeam.name %>
+	
+		<h2>Gardien</h2>
+		<% if (userTeam.goalkeeper == undefined) { %>
+			Vous n'avez pas encore de gardien. <a href="/monequipe/acheter/gardien">Acheter un gardien</a>.
+		<% } else { %>
+			<%= userTeam.goalkeeper %>
+		<% } %>
+	
+		<h2>Défenseur</h2>
+		<% if (userTeam.defender == undefined) { %>
+			Vous n'avez pas encore de défenseur. <a href="/monequipe/acheter/defenseur">Acheter un défenseur</a>.
+		<% } else { %>
+			<%= userTeam.defender %>
+		<% } %>
+	
+		<h2>Milieu de terrain</h2>
+		<% if (userTeam.midfield == undefined) { %>
+			Vous n'avez pas encore de milieu de terrain. <a href="/monequipe/acheter/milieu">Acheter un milieu de terrain</a>.
+		<% } else { %>
+			<%= userTeam.midfield %>
+		<% } %>
+	
+		<h2>Attaquant</h2>
+		<% if (userTeam.attacker == undefined) { %>
+			Vous n'avez pas encore d'attaquant. <a href="/monequipe/acheter/attaquant">Acheter un attaquant</a>.
+		<% } else { %>
+			<%= userTeam.attacker %>
+		<% } %>
+		
+	<% } %>
+</div>
+<% include ../partials/footer %>

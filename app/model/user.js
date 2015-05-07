@@ -4,7 +4,9 @@ var userSchema = mongoose.Schema({
     local : {
 	    username : String,
 	    password : String
-    }
+    },
+    team : mongoose.Schema.ObjectId,
+    walletAmount : Number
 });
 userSchema.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);

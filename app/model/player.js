@@ -6,7 +6,8 @@ var playerSchema = mongoose.Schema({
 	birthdate : Date,
 	country : mongoose.Schema.ObjectId,
 	position : mongoose.Schema.ObjectId,
-	club : mongoose.Schema.ObjectId
+	club : mongoose.Schema.ObjectId,
+	currentValue : Number
 });
 playerSchema.methods.add = function(firstname, lastname, country, position, club) {
 	var buffer = 0;
