@@ -70,7 +70,7 @@
 		<h2>Positions</h2>
 		<ul>
 			<% positionList.forEach(function(position){ %>
-				<li><%= position.name %> (<%= position.division %>)</li>
+				<li><%= position.name %></li>
 			<% }) %>
 		</ul>
 		<form action="/admin/ajouter/position" method="POST">
@@ -82,7 +82,6 @@
 		</form>
 	</div>
 	
-	<!--
 	<div class="blankslate">
 		<h2>Joueur</h2>
 		<ul>
@@ -108,6 +107,14 @@
 				</select></dd>
 			</dl>
 			<dl class="form">
+				<dt><label for="position">Position : </label></dt>
+				<dd><select name="position">
+					<% positionList.forEach(function(position){ %>
+						<option value="<%= position._id %>"><%= position.name %></option>
+					<% }) %>
+				</select></dd>
+			</dl>
+			<dl class="form">
 				<dt><label for="club">Club : </label></dt>
 				<dd><select name="club">
 					<% clubList.forEach(function(club){ %>
@@ -118,6 +125,5 @@
 			<button class="btn" type="submit">Ajouter</button>
 		</form>
 	</div>
-	-->
 </div>
 <% include ../partials/footer %>
