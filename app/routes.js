@@ -32,6 +32,10 @@ module.exports = function(app, passport, async) {
 	app.post('/admin/ajouter/club', isLoggedIn, function(req, res) { require('./controller/admin-add.js').postClub(req, res); });
 	app.post('/admin/ajouter/position', isLoggedIn, function(req, res) { require('./controller/admin-add.js').postPosition(req, res); });
 	app.post('/admin/ajouter/joueur', isLoggedIn, function(req, res) { require('./controller/admin-add.js').postPlayer(req, res); });
+	app.get('/admin/editer', isLoggedIn, function(req, res) { require('./controller/admin-edit.js').execute(req, res, async); });
+	app.post('/admin/editer/equipe', isLoggedIn, function(req, res) { require('./controller/admin-edit.js').postTeam(req, res); });
+	app.post('/admin/editer/historique', isLoggedIn, function(req, res) { require('./controller/admin-edit.js').postHistory(req, res); });
+	app.post('/admin/editer/joueur', isLoggedIn, function(req, res) { require('./controller/admin-edit.js').postPlayer(req, res); });
 //END BACK-OFFICE
 //****************************************
 
@@ -39,15 +43,17 @@ module.exports = function(app, passport, async) {
 //USER ACCOUNT
 	app.get('/moncompte', isLoggedIn, function(req, res) { require('./controller/page-account.js').execute(req, res); });
 	app.get('/monequipe', isLoggedIn, function(req, res) { require('./controller/page-team.js').execute(req, res); });
+	app.get('/monequipe/acheter/:position', isLoggedIn, function(req, res) { require('./controller/page-buy.js').execute(req, res, async); });
 	app.post('/monequipe/creer', isLoggedIn, function(req, res) { require('./controller/page-team.js').post(req, res); });
+	app.post('/monequipe/acheterjoueur', isLoggedIn, function(req, res) { require('./controller/page-buy.js').post(req, res, async); });
 //END USER ACCOUNT
 //****************************************
 	
 	//DEFAULT
 	app.get('/', function(req, res) { require('./controller/page-home.js').execute(req, res); });
 	app.use(function(req, res, next){
-		res.setHeader('Content-Type', 'text/plain');
-		res.send(404, 'Page introuvable !');
+		res.setHeader('Content-Type', 'text/html');
+		res.status(404).send('Page introuvable !<br /><a href="/">Accueil</a>');
 	});
 };
 

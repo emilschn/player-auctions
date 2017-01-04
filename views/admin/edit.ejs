@@ -1,0 +1,58 @@
+<% include ../partials/header %>
+<div class="blankslate">
+	<h1>Editer des données</h1>
+	
+	<div class="blankslate">
+		<h2>Equipes</h2>
+
+		<% teamList.forEach(function(team){ %>
+			<h3><%= team.name %></h3>
+
+			<% team.players.forEach(function(player){ %>
+			<form action="/admin/editer/equipe" method="POST">
+				<dl class="form">
+					<dt><%= player %></dt>
+				</dl>
+				<input type="hidden" name="teamId" value="<%= team._id %>" />
+				<input type="hidden" name="playerId" value="<%= player %>" />
+				<button class="btn" type="submit">Supprimer</button>
+			</form>
+			<% }) %>
+
+		<% }) %>
+	</div>
+	
+	<div class="blankslate">
+		<h2>Historique</h2>
+
+		<% historyList.forEach(function(history){ %>
+			<form action="/admin/editer/historique" method="POST">
+				<dl class="form">
+					<dt><%= history.team %> - <%= history.player %> - <%= history.action %> - <%= history.value %></dt>
+				</dl>
+				<input type="hidden" name="historyId" value="<%= history._id %>" />
+				<button class="btn" type="submit">Supprimer</button>
+			</form>
+		<% }) %>
+	</div>
+	
+	<div class="blankslate">
+		<h2>Joueurs</h2>
+
+		<% playerList.forEach(function(player){ %>
+			<form action="/admin/editer/joueur" method="POST">
+				<dl class="form">
+					<dt><%= player.firstname %> <%= player.lastname %></dt>
+				</dl>
+				<dl class="form">
+					<dt><label for="firstname">Valeur : </label></dt>
+					<dd><input type="text" name="value" class="input-large" value="<%= player.getCurrentValue() %>" /> €</dd>
+				</dl>
+				<input type="hidden" name="playerId" value="<%= player._id %>" />
+				<button class="btn" type="submit">Editer</button>
+			</form>
+		<% }) %>
+	</div>
+
+</div>
+<% include ../partials/footer %>

@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var bcrypt   = require('bcrypt-nodejs');
 var positionSchema = mongoose.Schema({
 	name : String
 });

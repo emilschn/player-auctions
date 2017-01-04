@@ -86,7 +86,7 @@
 		<h2>Joueur</h2>
 		<ul>
 			<% playerList.forEach(function(player){ %>
-				<li><%= player.lastname %> <%= player.firstname %> (<%= player.club %>)</li>
+				<li><%= player.firstname %> <%= player.lastname %> (<%= player.club %>)</li>
 			<% }) %>
 		</ul>
 		<form action="/admin/ajouter/joueur" method="POST">

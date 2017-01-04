@@ -1,0 +1,17 @@
+<% include ../partials/header %>
+<div class="blankslate">
+	<h1>Acheter un joueur</h1>
+
+	<form action="/monequipe/acheterjoueur" method="POST">
+		<dl class="form">
+			<dt><label for="player"><%= position %> : </label></dt>
+			<dd><select name="player">
+				<% playerList.forEach(function(player){ %>
+					<option value="<%= player._id %>"><%= player.firstname %> <%= player.lastname %> (<%= player.club %>) à <%= player.getCurrentValue() %>€</option>
+				<% }) %>
+			</select></dd>
+		</dl>
+		<button class="btn" type="submit">Acheter</button>
+	</form>
+</div>
+<% include ../partials/footer %>

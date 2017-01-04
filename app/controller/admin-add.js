@@ -1,23 +1,4 @@
 exports.execute = function(req, res, async) {
-	/*
-	//Async getting datas from country, divisions, clubs, positions, players
-	var Country = require('../model/country');
-	Country.find(function(err, countryList) {
-
-	var Division = require('../model/division');
-	Division.find(function(err, divisionList) {
-
-	var Club = require('../model/club');
-	Club.find(function(err, clubList) {
-
-	var Position = require('../model/position');
-	Position.find(function(err, positionList) {
-
-	var Player = require('../model/player');
-	Player.find(function(err, playerList) {
-		res.render('admin/add.ejs', {user: req.user, countryList: countryList, divisionList: divisionList, clubList: clubList, positionList: positionList, playerList: playerList});
-	}); }); }); }); });
-	*/
 	async.parallel([
 		function(callback) {
 			var Country = require('../model/country');
@@ -88,14 +69,6 @@ exports.execute = function(req, res, async) {
 			positionList: results[3], 
 			playerList: results[4]
 		});
-
-/*
-		//results contains [sheets, Friends, Expenses]
-		var sheetData = {_id: results[0]._id, name: results[0].name};
-		sheetData.friends = results[1] || [];
-		sheetData.expenses = results[2] || [];
-
-		return res.send(200, sheetData);*/
 	});
 };
 

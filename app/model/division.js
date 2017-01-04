@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var bcrypt   = require('bcrypt-nodejs');
 var divisionSchema = mongoose.Schema({
 	name : String,
 	country : mongoose.Schema.ObjectId

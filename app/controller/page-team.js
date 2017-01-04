@@ -5,7 +5,7 @@ exports.execute = function(req, res){
 	});
 };
 exports.post = function(req, res) {
-	var Team = require('./model/team');
+	var Team = require('../model/team');
 	var newTeam = new Team();
 	if (newTeam.add(req.param('name'), req.user) !== 0) {
 		res.redirect('/monequipe');
