@@ -8,6 +8,24 @@ var playerSchema = mongoose.Schema({
 	club : mongoose.Schema.ObjectId,
 	currentValue : Number
 });
+
+playerSchema.methods.getCurrentValue = function() {
+	var buffer = 1;
+	if (this.currentValue > 1) {
+		buffer = this.currentValue;
+	}
+	return buffer;
+};
+playerSchema.methods.getBuyingValue = function() {
+	var buffer = this.getCurrentValue();
+	buffer++;
+	return buffer;
+};
+playerSchema.methods.getSellingValue = function() {
+	var buffer = this.getCurrentValue();
+	return buffer;
+};
+
 playerSchema.methods.add = function(firstname, lastname, country, position, club) {
 	var buffer = 0;
 	if (firstname !== "" && lastname !== "" && country !== "" && position !== "" && club !== "") {
@@ -22,13 +40,6 @@ playerSchema.methods.add = function(firstname, lastname, country, position, club
 	return buffer;
 };
 
-playerSchema.methods.getCurrentValue = function() {
-	var buffer = 1;
-	if (this.currentValue > 1) {
-		buffer = this.currentValue;
-	}
-	return buffer;
-};
 playerSchema.methods.updateValue = function(type) {
 	var newValue = this.getCurrentValue();
 	if (type === 'buy') {

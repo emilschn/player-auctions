@@ -8,13 +8,24 @@
 		<% teamList.forEach(function(team){ %>
 			<h3><%= team.name %></h3>
 
+			<h4>Monaie</h4>
+			<form action="/admin/editer/equipemonnaie" method="POST">
+				<dl class="form">
+					<dt><label for="firstname">Valeur : </label></dt>
+					<dd><input type="text" name="value" class="input-large" value="<%= team.getCurrentMoney() %>" /> €</dd>
+				</dl>
+				<input type="hidden" name="teamId" value="<%= team._id %>" />
+				<button class="btn" type="submit">Editer</button>
+			</form>
+
+			<h4>Joueurs</h4>
 			<% team.players.forEach(function(player){ %>
 			<form action="/admin/editer/equipe" method="POST">
 				<dl class="form">
-					<dt><%= player %></dt>
+					<dt><%= player.id %></dt>
 				</dl>
 				<input type="hidden" name="teamId" value="<%= team._id %>" />
-				<input type="hidden" name="playerId" value="<%= player %>" />
+				<input type="hidden" name="playerId" value="<%= player.id %>" />
 				<button class="btn" type="submit">Supprimer</button>
 			</form>
 			<% }) %>
@@ -28,7 +39,7 @@
 		<% historyList.forEach(function(history){ %>
 			<form action="/admin/editer/historique" method="POST">
 				<dl class="form">
-					<dt><%= history.team %> - <%= history.player %> - <%= history.action %> - <%= history.value %></dt>
+					<dt><%= history.date %> => <%= history.team %> - <%= history.player %> - <%= history.action %> - <%= history.value %></dt>
 				</dl>
 				<input type="hidden" name="historyId" value="<%= history._id %>" />
 				<button class="btn" type="submit">Supprimer</button>

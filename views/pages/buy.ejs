@@ -7,7 +7,7 @@
 			<dt><label for="player"><%= position %> : </label></dt>
 			<dd><select name="player">
 				<% playerList.forEach(function(player){ %>
-					<option value="<%= player._id %>"><%= player.firstname %> <%= player.lastname %> (<%= player.club %>) à <%= player.getCurrentValue() %>€</option>
+					<option value="<%= player._id %>"><%= player.firstname %> <%= player.lastname %> (<%= player.club %>) à <%= player.getBuyingValue() %>€</option>
 				<% }) %>
 			</select></dd>
 		</dl>

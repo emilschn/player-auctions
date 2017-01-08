@@ -17,21 +17,29 @@
 		<h2>Nom</h2>
 		<%= userTeam.name %>
 
+		<h2>Argent restant</h2>
+		<%= userTeam.getCurrentMoney() %> €
+
 		<h2>Liste des joueurs</h2>
-		<% userTeam.players.forEach(function(player){ %>
-			- <%= player %><br />
+		<% playerList.forEach(function(player){ %>
+			- <%= player.firstname %> <%= player.lastname %> vaut <%= player.currentValue %>€, acheté <%= player.initValue %>€ le <%= player.date %>
+
+			<form action="/monequipe/vendrejoueur" method="POST">
+				<input type="hidden" name="playerId" value="<%= player.id %>" />
+				<button class="btn" type="submit">Vendre pour <%= player.sellingValue %>€</button>
+			</form>
 		<% }) %>
 	
-		<h2>Gardien</h2>
+		<h3>Gardien</h3>
 		<a href="/monequipe/acheter/Gardien">Acheter un gardien</a>.
 	
-		<h2>Défenseur</h2>
+		<h3>Défenseur</h3>
 		<a href="/monequipe/acheter/Defenseur%20central">Acheter un défenseur central</a>.
 	
-		<h2>Milieu de terrain</h2>
+		<h3>Milieu de terrain</h3>
 		<a href="/monequipe/acheter/milieu">Acheter un milieu de terrain</a>.
 	
-		<h2>Attaquant</h2>
+		<h3>Attaquant</h3>
 		<a href="/monequipe/acheter/attaquant">Acheter un attaquant</a>.
 		
 	<% } %>

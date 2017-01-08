@@ -72,15 +72,12 @@ exports.post = function(req, res) {
 			//Commence par l'ajouter à l'historique des actions
 			var History = require('../model/history');
 			var newHistory = new History();
-			if (newHistory.add(req.user, player, 'buy') !== 0) {
+			if (newHistory.add(req.user, player, 'buy')) {
 
 				//Met à jour la liste des joueurs de l'équipe
 				var Team = require('../model/team');
 				var updateTeam = new Team();
 				updateTeam.addPlayer(req.user, player);
-
-				//Met à jour la valeur du joueur acheté
-				player.updateValue('buy');
 
 				//Redirige vers l'équipe
 				res.redirect('/monequipe');

@@ -50,6 +50,15 @@ exports.execute = function(req, res, async) {
 	});
 };
 
+exports.postTeamMoney = function(req, res) {
+	var Team = require('../model/team');
+	Team.findOne({_id: req.param('teamId')}, function(err, team){
+		team.money = req.param('value');
+		team.save();
+		res.redirect('/admin/editer');
+	});
+};
+
 exports.postTeam = function(req, res) {
 	var Team = require('../model/team');
 	var updateTeam = new Team();
