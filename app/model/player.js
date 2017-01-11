@@ -40,7 +40,7 @@ playerSchema.methods.add = function(firstname, lastname, country, position, club
 	return buffer;
 };
 
-playerSchema.methods.updateValue = function(type) {
+playerSchema.methods.updateValue = function( type, callback ) {
 	var newValue = this.getCurrentValue();
 	if (type === 'buy') {
 		newValue++;
@@ -50,6 +50,10 @@ playerSchema.methods.updateValue = function(type) {
 	}
 	this.currentValue = Math.max(newValue, 1);
 	this.save();
+	
+	if ( callback !== undefined ) {
+		callback();
+	}
 };
 
 module.exports = mongoose.model('Player', playerSchema);

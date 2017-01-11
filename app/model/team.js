@@ -67,29 +67,23 @@ teamSchema.methods.add = function(name, user) {
  * @param Player player
  * @returns Boolean
  */
-teamSchema.methods.addPlayer = function(user, player) {
+teamSchema.methods.addPlayer = function( player, callback ) {
 	var buffer = false;
 	
-	//TODO : comparer joueurs de l'équipe et joueur ajouté pour controler les doublons
-	var Team = mongoose.model('Team', teamSchema);
-	Team.findOne({'_id': user.team}, function(err, team) {
-		var newData = new Object();
-		newData.players = team.players;
-		var newPlayerData = new Object();
-		newPlayerData.id = player._id;
-		var date = new Date();
-		newPlayerData.date = date;
-		newPlayerData.amount = player.getBuyingValue();
-		newData.players.push(newPlayerData);
-		newData.money = team.getCurrentMoney() - player.getBuyingValue();
-		Team.findOneAndUpdate( {'_id': user.team}, newData, {upsert:false}, function(err, doc){
-			if (!err) {
-				//Met à jour la valeur du joueur acheté
-				player.updateValue('buy');
-				buffer = true;
-			}
-		} );
-	});
+	var newPlayerData = new Object();
+	newPlayerData.id = player._id;
+	var date = new Date();
+	newPlayerData.date = date;
+	newPlayerData.amount = player.getBuyingValue();
+	this.players.push(newPlayerData);
+	
+	this.money = this.getCurrentMoney() - player.getBuyingValue();
+	
+	this.save();
+	
+	if ( callback !== undefined ) {
+		callback();
+	}
 	
 	return buffer;
 };

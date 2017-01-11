@@ -26,11 +26,11 @@ var historySchema = mongoose.Schema({
  * @param String action
  * @returns Boolean
  */
-historySchema.methods.add = function(user, player, action) {
+historySchema.methods.add = function(team, player, action, callback) {
 	var buffer = false;
 	
-	if (user !== "" && player !== "" && action !== "") {
-		this.team = user.team;
+	if (team !== "" && player !== "" && action !== "") {
+		this.team = team;
 		this.player = player._id;
 		this.action = action;
 		if (action == "sell") {
@@ -40,6 +40,10 @@ historySchema.methods.add = function(user, player, action) {
 		}
 		this.save();
 		buffer = true;
+	}
+	
+	if ( callback !== undefined ) {
+		callback();
 	}
 	
 	return buffer;

@@ -13,6 +13,15 @@
 		</form>
 	
 	<% } else { %>
+		<% if ( error != undefined && error != '' ) { %>
+		<div class="flash flash-error">
+			<% if (error == 'not-enough-money') { %>
+			Vous n'avez pas assez d'argent pour acheter ce joueur !
+			<% } else { %>
+				<%= error %>
+			<% } %>
+		</div>
+		<% } %>
 		
 		<h2>Nom</h2>
 		<%= userTeam.name %>
@@ -34,13 +43,13 @@
 		<a href="/monequipe/acheter/Gardien">Acheter un gardien</a>.
 	
 		<h3>Défenseur</h3>
-		<a href="/monequipe/acheter/Defenseur%20central">Acheter un défenseur central</a>.
+		<a href="/monequipe/acheter/Défenseur">Acheter un défenseur</a>.
 	
 		<h3>Milieu de terrain</h3>
-		<a href="/monequipe/acheter/milieu">Acheter un milieu de terrain</a>.
+		<a href="/monequipe/acheter/Milieu">Acheter un milieu de terrain</a>.
 	
 		<h3>Attaquant</h3>
-		<a href="/monequipe/acheter/attaquant">Acheter un attaquant</a>.
+		<a href="/monequipe/acheter/Attaquant">Acheter un attaquant</a>.
 		
 	<% } %>
 </div>

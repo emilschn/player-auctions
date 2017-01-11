@@ -7,12 +7,14 @@
  * Team
  */
 exports.prepare = function(req, res){
+	var error = req.query.error;
+	
 	// Gets the team of the current player
 	var Team = require('../../model/team');
 	Team.findOne({'_id': req.user.team}, function(err, userTeam) {
 		
 		if (userTeam === null) {
-			res.render('pages/team.ejs', {user : req.user, userTeam: {}, playerList: []});
+			res.render('pages/team.ejs', { user : req.user, userTeam: {}, playerList: [], error: error });
 			
 		} else {
 			// Gets the player IDs list of the team
@@ -39,7 +41,7 @@ exports.prepare = function(req, res){
 					return objectPlayer;
 				});
 
-				res.render('pages/team.ejs', {user : req.user, userTeam: userTeam, playerList: playerList});
+				res.render('pages/team.ejs', { user : req.user, userTeam: userTeam, playerList: playerList, error: error });
 
 			});
 			
