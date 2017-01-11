@@ -1,3 +1,3 @@
-exports.execute = function(req, res){
+exports.prepare = function(req, res){
     res.render('pages/account.ejs', {user : req.user});
 };
