@@ -69,10 +69,7 @@ exports.post = function(req, res, async) {
 
 				// Is the player already in the player team?
 				var nPlayers = userTeam.players.length;
-				console.log( "nPlayers = " + nPlayers );
-				console.log( "player._id = " + player._id );
 				for ( var i = 0; i < nPlayers; i++ ) {
-					console.log( "userTeam.players["+i+"].id = " + userTeam.players[i].id );
 					if ( userTeam.players[i].id.equals( player._id ) ) {
 						console.log("forms/buy-player : player already in team");
 						error = "player-already-in-team";
