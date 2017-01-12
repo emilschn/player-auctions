@@ -2,16 +2,44 @@
 <div class="blankslate">
 	<h1>Acheter un joueur</h1>
 
-	<form action="/monequipe/acheterjoueur" method="POST">
-		<dl class="form">
-			<dt><label for="player"><%= position %> : </label></dt>
-			<dd><select name="player">
-				<% playerList.forEach(function(player){ %>
-					<option value="<%= player._id %>"><%= player.firstname %> <%= player.lastname %> (<%= player.club %>) à <%= player.getBuyingValue() %>€</option>
-				<% }) %>
-			</select></dd>
+	<form action="#" method="GET" class="form-actions">
+		<dl class="form-group">
+			<dt><label for="filter-position">Position :</label></dt>
+			<dd>
+				<select name="filter-position" id="filter-position" class="form-select">
+					<option value="">Toutes les positions</option>
+					<% positionList.forEach( function( positionItem ){ %>
+						<option value="<%= positionItem._id %>" <% if (positionItem.name == position) { %>selected="selected"<% } %>><%= positionItem.name %></option>
+					<% }) %>
+				</select>
+			</dd>
 		</dl>
-		<button class="btn" type="submit">Acheter</button>
+		<dl class="form-group">
+			<dt><label for="filter-club">Club :</label></dt>
+			<dd>
+				<select name="filter-club" id="filter-club" class="form-select">
+					<option value="">Tous les clubs</option>
+					<% clubList.forEach( function( club ){ %>
+						<option value="<%= club._id %>"><%= club.name %></option>
+					<% }) %>
+				</select>
+			</dd>
+		</dl>
 	</form>
+
+
+	<div id="form-buy-player-list">
+		<% playerList.forEach(function(player){ %>
+			<form action="/monequipe/acheterjoueur" method="POST">
+				<dl class="form">
+					<dt><label for="player"><%= player.firstname %> <%= player.lastname %> à <%= player.getBuyingValue() %>€</label></dt>
+					<dd>
+						<input type="hidden" name="player" value="<%= player._id %>" />
+						<button class="btn btn-primary" type="submit">Acheter</button>
+					</dd>
+				</dl>
+			</form>
+		<% }) %>
+	</div>
 </div>
 <% include ../partials/footer %>

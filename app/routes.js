@@ -50,6 +50,9 @@ module.exports = function(app, passport, async) {
 	app.post('/monequipe/creer', isLoggedIn, function(req, res) { require('./controller/forms/create-team.js').post(req, res); });
 	app.post('/monequipe/vendrejoueur', isLoggedIn, function(req, res) { require('./controller/forms/sell-player.js').post(req, res); });
 	app.post('/monequipe/acheterjoueur', isLoggedIn, function(req, res) { require('./controller/forms/buy-player.js').post(req, res, async); });
+	
+	// Ajax
+	app.get('/monequipe/filtrer-joueurs-achat', isLoggedIn, function(req, res) { require('./controller/ajax/player-list.js').prepare(req, res); });
 //END USER ACCOUNT
 //****************************************
 	
