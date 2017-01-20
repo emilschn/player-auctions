@@ -30,14 +30,42 @@
 		<%= userTeam.getCurrentMoney() %> €
 
 		<h2>Liste des joueurs</h2>
-		<% playerList.forEach(function(player){ %>
-			- <%= player.firstname %> <%= player.lastname %> vaut <%= player.currentValue %>€, acheté <%= player.initValue %>€ le <%= player.date %>
-
-			<form action="/monequipe/vendrejoueur" method="POST">
-				<input type="hidden" name="playerId" value="<%= player.id %>" />
-				<button class="btn" type="submit">Vendre pour <%= player.sellingValue %>€</button>
-			</form>
-		<% }) %>
+		<table id="team-list" class="display" width="100%"></table>
+		<script type="text/javascript">
+			var dataSet = [
+				<% playerList.forEach(function(player){ %>
+					[	'<%= player.firstname %>',
+						'<%= player.lastname %>',
+						'<%= player.position %>',
+						'<%= player.club %>',
+						'<%= player.initValue %>€',
+						'<%= player.currentValue %>€',
+						'<%= player.date %>',
+						'<span style="color: <% if ( player.valueDifference > 0 ){ %>green<% } else { %>red<% } %>"><%= player.valueDifference %>€</span>',
+						'<form action="/monequipe/vendrejoueur" method="POST">\
+						<input type="hidden" name="playerId" value="<%= player.id %>" />\
+						<button class="btn" type="submit">Vendre pour <%= player.sellingValue %>€</button>\
+						</form>'
+					],
+				<% }) %>
+			];
+			$(document).ready(function() {
+				$('#team-list').DataTable( {
+					data: dataSet,
+					columns: [
+						{ title: "Prénom" },
+						{ title: "Nom" },
+						{ title: "Position" },
+						{ title: "Club" },
+						{ title: "Valeur d'achat" },
+						{ title: "Valeur actuelle" },
+						{ title: "Date d'achat" },
+						{ title: "Variation" },
+						{ title: "Action" },
+					]
+				} );
+			} );
+		</script>
 	
 		<h3>Gardien</h3>
 		<a href="/monequipe/acheter/Gardien">Acheter un gardien</a>.

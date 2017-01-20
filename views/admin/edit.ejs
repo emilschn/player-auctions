@@ -22,7 +22,7 @@
 			<% team.players.forEach(function(player){ %>
 			<form action="/admin/editer/equipe" method="POST">
 				<dl class="form">
-					<dt><%= player.id %></dt>
+					<dt><%= player.id %> (<%= player.date %></dt>
 				</dl>
 				<input type="hidden" name="teamId" value="<%= team._id %>" />
 				<input type="hidden" name="playerId" value="<%= player.id %>" />
