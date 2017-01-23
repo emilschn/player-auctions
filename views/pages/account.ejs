@@ -3,7 +3,30 @@
 	<h1>Mon compte</h1>
 	
 	<strong>id</strong>: <%= user._id %><br>
-	<strong>username</strong>: <%= user.local.username %><br>
-	<strong>password</strong>: <%= user.local.password %>
+	<strong>username</strong>: <%= user.local.username %>
+	
+	<% if (error) { %>
+        <div class="flash flash-error">Le mot de passe n'a pas été modifié</div>
+	<% } %>
+	<% if (success) { %>
+        <div class="flash flash-success">Le mot de passe a été modifié</div>
+	<% } %>
+
+	<h2>Changer mon mot de passe</h2>
+	<form action="/moncompte" method="POST">
+		<dl class="form">
+			<dt><label for="passwordcurrent">Mot de passe actuel : </label></dt>
+			<dd><input type="password" id="passwordcurrent" name="passwordcurrent" class="input-large" /></dd>
+		</dl>
+		<dl class="form">
+			<dt><label for="passwordnew">Nouveau mot de passe : </label></dt>
+			<dd><input type="password" id="passwordnew" name="passwordnew" class="input-large" /></dd>
+		</dl>
+		<dl class="form">
+			<dt><label for="passwordrepeat">Mot de passe : </label></dt>
+			<dd><input type="password" id="passwordrepeat" name="passwordrepeat" class="input-large" /></dd>
+		</dl>
+		<button class="btn" type="submit">Connexion</button>
+	</form>
 </div>
 <% include ../partials/footer %>

@@ -5,7 +5,7 @@ module.exports = function(app, passport, async) {
 	//SIGNIN
 	app.get('/connexion', function(req, res) { require('./controller/pages/signin.js').prepare(req, res); });
 	app.post('/connexion', passport.authenticate('local-login', {
-		successRedirect : '/moncompte', // redirect to the secure profile section
+		successRedirect : '/monequipe', // redirect to the secure profile section
 		failureRedirect : '/connexion', // redirect back to the signup page if there is an error
 		failureFlash : true // allow flash messages
 	}));
@@ -13,7 +13,7 @@ module.exports = function(app, passport, async) {
 	//SIGNUP
 	app.get('/inscription', function(req, res) { require('./controller/pages/signup.js').prepare(req, res); });
 	app.post('/inscription', passport.authenticate('local-signup', {
-		successRedirect : '/moncompte', // redirect to the secure profile section
+		successRedirect : '/monequipe', // redirect to the secure profile section
 		failureRedirect : '/inscription', // redirect back to the signup page if there is an error
 		failureFlash : true // allow flash messages
 	}));
@@ -44,6 +44,8 @@ module.exports = function(app, passport, async) {
 //****************************************
 //USER ACCOUNT
 	app.get('/moncompte', isLoggedIn, function(req, res) { require('./controller/pages/account.js').prepare(req, res); });
+	app.post('/moncompte', isLoggedIn, function(req, res) { require('./controller/forms/account.js').post(req, res); });
+	
 	app.get('/monequipe', isLoggedIn, function(req, res) { require('./controller/pages/team.js').prepare(req, res); });
 	app.get('/monequipe/acheter/:position', isLoggedIn, function(req, res) { require('./controller/pages/buy.js').prepare(req, res, async); });
 	
@@ -57,6 +59,7 @@ module.exports = function(app, passport, async) {
 //****************************************
 	
 	//DEFAULT
+	app.get('/mentions-legales', function(req, res) { require('./controller/pages/legal.js').execute(req, res); });
 	app.get('/', function(req, res) { require('./controller/pages/home.js').execute(req, res); });
 	app.use(function(req, res, next){
 		res.setHeader('Content-Type', 'text/html');
