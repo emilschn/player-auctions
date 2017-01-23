@@ -1,4 +1,4 @@
-module.exports = function(app, passport, async) {
+module.exports = function( app, passport, async, conf ) {
 
 //****************************************
 //LOGIN MANAGEMENT
@@ -44,7 +44,7 @@ module.exports = function(app, passport, async) {
 //****************************************
 //USER ACCOUNT
 	app.get('/moncompte', isLoggedIn, function(req, res) { require('./controller/pages/account.js').prepare(req, res); });
-	app.post('/moncompte', isLoggedIn, function(req, res) { require('./controller/forms/account.js').post(req, res); });
+	app.post('/moncompte', isLoggedIn, function(req, res) { require('./controller/forms/account.js').post(req, res, conf); });
 	
 	app.get('/monequipe', isLoggedIn, function(req, res) { require('./controller/pages/team.js').prepare(req, res); });
 	app.get('/monequipe/acheter/:position', isLoggedIn, function(req, res) { require('./controller/pages/buy.js').prepare(req, res, async); });

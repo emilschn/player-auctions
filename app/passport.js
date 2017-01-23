@@ -43,35 +43,52 @@ module.exports = function(passport) {
         // User.findOne wont fire unless data is sent back
         process.nextTick(function() {
 
-        // find a user whose username is the same as the forms username
-        // we are checking to see if the user trying to login already exists
-        User.findOne({ 'local.username' :  username }, function(err, user) {
-            // if there are any errors, return the error
-            if (err)
-                return done(err);
+			var newEmail = req.body.email;
+			
+			//Tries to find a user whose e-mail is the same as the form's e
+			User.findOne( { 'local.email': newEmail }, function(err, user) {
+				// if there are any errors, return the error
+				if (err)
+					return done(err);
 
-            // check to see if theres already a user with that username
-            if (user) {
-                return done(null, false, req.flash('signupMessage', 'Cet identifiant existe déjà.'));
-            } else {
+				// check to see if theres already a user with that username
+				if (user) {
+					return done(null, false, req.flash('signupMessage', 'Cet e-mail existe déjà.'));
+					
+				} else {
 
-                // if there is no user with that username
-                // create the user
-                var newUser            = new User();
+					// find a user whose username is the same as the forms username
+					User.findOne({ 'local.username' :  username }, function(err, user) {
+						// if there are any errors, return the error
+						if (err)
+							return done(err);
 
-                // set the user's local credentials
-                newUser.local.username = username;
-                newUser.local.password = newUser.generateHash(password);
+						// check to see if theres already a user with that username
+						if (user) {
+							return done(null, false, req.flash('signupMessage', 'Cet identifiant existe déjà.'));
+						} else {
 
-                // save the user
-                newUser.save(function(err) {
-                    if (err)
-                        throw err;
-                    return done(null, newUser);
-                });
-            }
+							// if there is no user with that username
+							// create the user
+							var newUser            = new User();
 
-        });    
+							// set the user's local credentials
+							newUser.local.username = username;
+							newUser.local.email = newEmail;
+							newUser.local.password = newUser.generateHash(password);
+
+							// save the user
+							newUser.save(function(err) {
+								if (err)
+									throw err;
+								return done(null, newUser);
+							});
+						}
+
+					});
+				}
+				
+			} );
 
         });
 
