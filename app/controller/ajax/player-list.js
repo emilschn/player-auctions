@@ -5,14 +5,14 @@ exports.prepare = function(req, res) {
 	entityTeam.findById( req.user.team, function (err, userTeam){
 	
 		var searchParams = {};
-		if ( req.query.position !== "" && req.query.position !== null ) { searchParams.position = req.query.position; }
-		if ( req.query.club !== "" && req.query.club !== null ) { searchParams.club = req.query.club; }
+		if ( req.query.position !== "" && req.query.position !== null && req.query.position !== undefined ) { searchParams.position = req.query.position; }
+		if ( req.query.club !== "" && req.query.club !== null && req.query.club !== undefined ) { searchParams.club = req.query.club; }
 		
 		if ( !err ) {
 			var playerIdList = userTeam.players.map(function(player) { return player.id; } );
 			searchParams._id = { '$nin': playerIdList };
 		}
-
+		
 		entityPlayer.find( searchParams, function( err, playerList ) {
 			var buffer = "";
 			if ( err ) {
