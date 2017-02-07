@@ -1,0 +1,85 @@
+<% include ../partials/header %>
+<div class="blankslate">
+	<h1>Mes joueurs</h1>
+	
+	<% if (user.team == undefined) { %>
+		<div class="flash flash-error">Votre équipe n'a pas encore été créée !</div>
+		<form action="/monequipe/creer" method="POST">
+			<dl class="form">
+				<dt><label for="name">Nom : </label></dt>
+				<dd><input type="text" name="name" class="input-large" placeholder="Nom de l'équipe" /></dd>
+			</dl>
+			<button class="btn" type="submit">Créer</button>
+		</form>
+	
+	<% } else { %>
+
+		<div id="team-players-list">
+			<div>
+				<h2>Mes joueurs</h2>
+				<img src="./assets/img/ajax-loader.gif" alt="loading" v-if="isLoadingTeamPlayerList" />
+				<div v-for="teamPlayerItem in teamPlayerList" v-bind:teamplayerlist="teamPlayerItem">
+					<strong>{{ teamPlayerItem.firstname }} {{ teamPlayerItem.lastname }}</strong>
+					
+				</div>
+			</div>
+
+
+
+			<h2>Acheter</h2>
+
+			<img src="./assets/img/ajax-loader.gif" alt="loading" v-if="isLoadingBuyPlayerList" />
+
+			<form action="#" method="GET" class="form-actions">
+				<dl class="form-group">
+					<dt><label for="filter-position">Position :</label></dt>
+					<dd>
+						<select name="filter-position" id="filter-position" class="form-select" v-model="position" v-on:change="refreshBuyPlayerList()">
+							<option value="">Toutes les positions</option>
+							<% positionList.forEach( function( positionItem ){ %>
+								<option value="<%= positionItem._id %>"><%= positionItem.name %></option>
+							<% }) %>
+						</select>
+					</dd>
+				</dl>
+				<dl class="form-group">
+					<dt><label for="filter-club">Club :</label></dt>
+					<dd>
+						<select name="filter-club" id="filter-club" class="form-select" v-model="club" v-on:change="refreshBuyPlayerList()">
+							<option value="">Tous les clubs</option>
+							<% clubList.forEach( function( club ){ %>
+								<option value="<%= club._id %>"><%= club.name %></option>
+							<% }) %>
+						</select>
+					</dd>
+				</dl>
+			</form>
+
+			<div>
+				<div v-for="buyPlayerItem in buyPlayerList" v-bind:buyplayerlist="buyPlayerItem">
+					<strong>{{ buyPlayerItem.firstname }} {{ buyPlayerItem.lastname }}</strong>
+					
+					<form action="/monequipe/acheterjoueur" method="POST">
+						<input type="hidden" name="player" :value="buyPlayerItem._id" />
+						<button class="btn btn-primary" type="submit">Acheter pour {{ buyPlayerItem.buyingValue }}€</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+		<link media="all" rel="stylesheet" href="/assets/datatables/jquery.dataTables.min.css" />
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+		<script src="/assets/datatables/jquery.dataTables.min.js"></script>
+
+		<script src="/assets/vue/vue.js" type="text/javascript"></script>
+		<script src="/assets/vue/vue-resource.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			var appBuyPlayerListPosition = '';
+		</script>
+		<script src="/assets/app.js" type="text/javascript"></script>
+
+	<% } %>
+</div>
+
+<% include ../partials/footer %>

@@ -1,13 +1,4 @@
-/**
- * PAGE - ACCOUNT/TEAM
- */
-
-/**
- * Display
- * Team
- */
-exports.prepare = function(req, res){
-	var error = req.query.error;
+exports.prepare = function(req, res) {
 	
 	var Club = require('../../model/club');
 	Club.find({}, function(err, clubList) {
@@ -66,7 +57,9 @@ exports.prepare = function(req, res){
 							return objectPlayer;
 						});
 
-						res.render('pages/team.ejs', { user : req.user, userTeam: userTeam, playerList: playerList, error: error });
+						buffer = JSON.stringify( playerList );
+						res.writeHead(200, {'Content-Type': 'text/plain'});
+						res.end( buffer );
 
 					});
 
@@ -75,6 +68,5 @@ exports.prepare = function(req, res){
 			});
 
 		});
-		
 	});
 };

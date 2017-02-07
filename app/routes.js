@@ -5,7 +5,7 @@ module.exports = function( app, passport, async, conf ) {
 	//SIGNIN
 	app.get('/connexion', function(req, res) { require('./controller/pages/signin.js').prepare(req, res); });
 	app.post('/connexion', passport.authenticate('local-login', {
-		successRedirect : '/monequipe', // redirect to the secure profile section
+		successRedirect : '/mon-equipe', // redirect to the secure profile section
 		failureRedirect : '/connexion', // redirect back to the signup page if there is an error
 		failureFlash : true // allow flash messages
 	}));
@@ -13,7 +13,7 @@ module.exports = function( app, passport, async, conf ) {
 	//SIGNUP
 	app.get('/inscription', function(req, res) { require('./controller/pages/signup.js').prepare(req, res); });
 	app.post('/inscription', passport.authenticate('local-signup', {
-		successRedirect : '/monequipe', // redirect to the secure profile section
+		successRedirect : '/mon-equipe', // redirect to the secure profile section
 		failureRedirect : '/inscription', // redirect back to the signup page if there is an error
 		failureFlash : true // allow flash messages
 	}));
@@ -43,18 +43,22 @@ module.exports = function( app, passport, async, conf ) {
 
 //****************************************
 //USER ACCOUNT
-	app.get('/moncompte', isLoggedIn, function(req, res) { require('./controller/pages/account.js').prepare(req, res); });
-	app.post('/moncompte', isLoggedIn, function(req, res) { require('./controller/forms/account.js').post(req, res, conf); });
+	app.get('/mon-compte', isLoggedIn, function(req, res) { require('./controller/pages/account.js').prepare(req, res); });
+	app.post('/mon-compte', isLoggedIn, function(req, res) { require('./controller/forms/account.js').post(req, res, conf); });
 	
-	app.get('/monequipe', isLoggedIn, function(req, res) { require('./controller/pages/team.js').prepare(req, res); });
-	app.get('/monequipe/acheter/:position', isLoggedIn, function(req, res) { require('./controller/pages/buy.js').prepare(req, res, async); });
+	app.get('/mon-equipe', isLoggedIn, function(req, res) { require('./controller/pages/page-team-dashboard.js').prepare(req, res, async); });
+	app.get('/mes-joueurs', isLoggedIn, function(req, res) { require('./controller/pages/page-team-players.js').prepare(req, res); });
+	app.get('/ma-formation', isLoggedIn, function(req, res) { require('./controller/pages/page-team-tactic.js').prepare(req, res); });
+
+	app.get('/mon-equipe/acheter/:position', isLoggedIn, function(req, res) { require('./controller/pages/buy.js').prepare(req, res, async); });
 	
-	app.post('/monequipe/creer', isLoggedIn, function(req, res) { require('./controller/forms/create-team.js').post(req, res); });
-	app.post('/monequipe/vendrejoueur', isLoggedIn, function(req, res) { require('./controller/forms/sell-player.js').post(req, res); });
-	app.post('/monequipe/acheterjoueur', isLoggedIn, function(req, res) { require('./controller/forms/buy-player.js').post(req, res, async); });
+	app.post('/mon-equipe/creer', isLoggedIn, function(req, res) { require('./controller/forms/create-team.js').post(req, res); });
+	app.post('/mon-equipe/vendrejoueur', isLoggedIn, function(req, res) { require('./controller/forms/sell-player.js').post(req, res); });
+	app.post('/mon-equipe/acheterjoueur', isLoggedIn, function(req, res) { require('./controller/forms/buy-player.js').post(req, res, async); });
 	
 	// Ajax
-	app.get('/monequipe/filtrer-joueurs-achat', isLoggedIn, function(req, res) { require('./controller/ajax/player-list.js').prepare(req, res); });
+	app.get('/mon-equipe/joueurs', isLoggedIn, function(req, res) { require('./controller/ajax/ajax-team-players-list.js').prepare(req, res); });
+	app.get('/mon-equipe/filtrer-joueurs-achat', isLoggedIn, function(req, res) { require('./controller/ajax/player-list.js').prepare(req, res); });
 //END USER ACCOUNT
 //****************************************
 	
