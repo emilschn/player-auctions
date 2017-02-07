@@ -53,7 +53,7 @@ exports.post = function(req, res, async) {
 			}
 			
 			if (error != "") {
-				res.redirect('/monequipe?error='+error);
+				res.redirect('/mon-equipe?error='+error);
 				
 				
 			} else {
@@ -79,7 +79,7 @@ exports.post = function(req, res, async) {
 			
 			
 				if (error != "") {
-					res.redirect('/monequipe?error='+error);
+					res.redirect('/mon-equipe?error='+error);
 
 				} else {
 					// Functions to be executed before the redirection
@@ -108,7 +108,7 @@ exports.post = function(req, res, async) {
 							//Met à jour la valeur du joueur acheté
 							player.updateValue( 'buy', function() {
 								//Redirige vers l'équipe
-								res.redirect('/monequipe');
+								res.redirect('/mon-equipe');
 							} );
 
 						}

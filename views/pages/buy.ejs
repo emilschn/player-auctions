@@ -31,7 +31,7 @@
 		<div v-for="buyPlayerItem in buyPlayerList" v-bind:buyplayerlist="buyPlayerItem">
 			<strong>{{ buyPlayerItem.firstname }} {{ buyPlayerItem.lastname }}</strong>
 			
-			<form action="/monequipe/acheterjoueur" method="POST">
+			<form action="/mon-equipe/acheterjoueur" method="POST">
 				<input type="hidden" name="player" :value="buyPlayerItem._id" />
 				<button class="btn btn-primary" type="submit">Acheter pour {{ buyPlayerItem.buyingValue }}€</button>
 			</form>

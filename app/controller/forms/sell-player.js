@@ -15,7 +15,7 @@ exports.post = function(req, res) {
 				updateTeam.removePlayer(req.user.team, req.param('playerId'));
 
 				//Redirige vers l'équipe
-				res.redirect('/monequipe');
+				res.redirect('/mon-equipe');
 				
 			}
 			

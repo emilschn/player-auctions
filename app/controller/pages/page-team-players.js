@@ -50,7 +50,7 @@ exports.prepare = function(req, res){
 								'<%= player.initValue %>€',
 								'<%= player.currentValue %>€',
 								'<span style="color: <% if ( player.valueDifference > 0 ){ %>green<% } else { %>red<% } %>"><%= player.valueDifference %>€</span>',
-								'<form action="/monequipe/vendrejoueur" method="POST">\
+								'<form action="/mon-equipe/vendrejoueur" method="POST">\
 								<input type="hidden" name="playerId" value="<%= player.id %>" />\
 								<button class="btn" type="submit">Vendre pour <%= player.sellingValue %>€</button>\
 								</form>'
