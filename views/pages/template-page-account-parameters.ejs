@@ -2,9 +2,8 @@
 <div class="blankslate">
 	<h1>Mon compte</h1>
 	
-	<strong>id</strong>: <%= user._id %><br />
-	<strong>username</strong>: <%= user.local.username %><br />
-	<strong>e-mail</strong>: <%= user.local.email %>
+	<strong>Identifiant</strong> : <%= user.local.username %><br />
+	<strong>E-mail de contact</strong> : <%= user.local.email %>
 	
 	<% if (error) { %>
         <div class="flash flash-error">Le mot de passe n'a pas été modifié</div>

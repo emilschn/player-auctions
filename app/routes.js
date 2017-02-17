@@ -47,8 +47,7 @@ module.exports = function( app, passport, async, conf ) {
 	app.post('/mon-compte', isLoggedIn, function(req, res) { require('./controller/forms/account.js').post(req, res, conf); });
 	
 	app.get('/mon-equipe', isLoggedIn, function(req, res) { require('./controller/pages/page-team-dashboard.js').prepare(req, res, async); });
-	app.get('/mes-joueurs', isLoggedIn, function(req, res) { require('./controller/pages/page-team-players.js').prepare(req, res); });
-	app.get('/ma-formation', isLoggedIn, function(req, res) { require('./controller/pages/page-team-tactic.js').prepare(req, res); });
+	app.get('/mes-joueurs', isLoggedIn, function(req, res) { require('./controller/pages/page-team-players.js').prepare(req, res, async); });
 
 	app.get('/mon-equipe/acheter/:position', isLoggedIn, function(req, res) { require('./controller/pages/buy.js').prepare(req, res, async); });
 	

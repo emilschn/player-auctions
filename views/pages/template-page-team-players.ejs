@@ -14,24 +14,64 @@
 	
 	<% } else { %>
 
+
+		<h2>Mes joueurs</h2>
+		<blockquote>
+			<p>Vous avez acheté X joueurs sur 11 posssible.</p>
+			<p>Vous devez acheter 1 gardien. Vous en avez X.</p>
+		</blockquote>
+
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+		<table id="team-list" class="display" width="100%"></table>
+		<script type="text/javascript">
+			var dataSet = [
+				<% playerList.forEach(function(player){ %>
+					[	'<%= player.firstname %>',
+						'<%= player.lastname %>',
+						'<%= player.position %>',
+						'<%= player.initValue %>€',
+						'<%= player.currentValue %>€',
+						'<span style="color: <% if ( player.valueDifference > 0 ){ %>green<% } else { %>red<% } %>"><%= player.valueDifference %>€</span>',
+						'<form action="/mon-equipe/vendrejoueur" method="POST">\
+						<input type="hidden" name="playerId" value="<%= player.id %>" />\
+						<button class="btn" type="submit">Vendre pour <%= player.sellingValue %>€</button>\
+						</form>'
+					],
+				<% }) %>
+			];
+			$(document).ready(function() {
+				$('#team-list').DataTable( {
+					data: dataSet,
+					columns: [
+						{ title: "Prénom" },
+						{ title: "Nom" },
+						{ title: "Position" },
+						{ title: "Valeur d'achat" },
+						{ title: "Valeur actuelle" },
+						{ title: "Variation" },
+						{ title: "Action" },
+					],
+					lengthChange: false,
+					paging: false,
+					info: false,
+					language: {
+						search: "Rechercher :"
+					}
+				} );
+			} );
+		</script>
+
+		<hr />
+
+
 		<div id="team-players-list">
-			<div>
-				<h2>Mes joueurs</h2>
-				<img src="./assets/img/ajax-loader.gif" alt="loading" v-if="isLoadingTeamPlayerList" />
-				<div v-for="teamPlayerItem in teamPlayerList" v-bind:teamplayerlist="teamPlayerItem">
-					<strong>{{ teamPlayerItem.firstname }} {{ teamPlayerItem.lastname }}</strong>
-					
-				</div>
-			</div>
-
-
 
 			<h2>Acheter</h2>
 
 			<img src="./assets/img/ajax-loader.gif" alt="loading" v-if="isLoadingBuyPlayerList" />
 
-			<form action="#" method="GET" class="form-actions">
-				<dl class="form-group">
+			<form action="#" method="GET" class="form-actions columns">
+				<dl class="column one-half">
 					<dt><label for="filter-position">Position :</label></dt>
 					<dd>
 						<select name="filter-position" id="filter-position" class="form-select" v-model="position" v-on:change="refreshBuyPlayerList()">
@@ -42,7 +82,7 @@
 						</select>
 					</dd>
 				</dl>
-				<dl class="form-group">
+				<dl class="column one-half">
 					<dt><label for="filter-club">Club :</label></dt>
 					<dd>
 						<select name="filter-club" id="filter-club" class="form-select" v-model="club" v-on:change="refreshBuyPlayerList()">
@@ -55,8 +95,8 @@
 				</dl>
 			</form>
 
-			<div>
-				<div v-for="buyPlayerItem in buyPlayerList" v-bind:buyplayerlist="buyPlayerItem">
+			<div class="columns">
+				<div v-for="buyPlayerItem in buyPlayerList" v-bind:buyplayerlist="buyPlayerItem" class="column one-fifth centered">
 					<strong>{{ buyPlayerItem.firstname }} {{ buyPlayerItem.lastname }}</strong>
 					
 					<form action="/mon-equipe/acheterjoueur" method="POST">
@@ -69,7 +109,6 @@
 
 
 		<link media="all" rel="stylesheet" href="/assets/datatables/jquery.dataTables.min.css" />
-		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<script src="/assets/datatables/jquery.dataTables.min.js"></script>
 
 		<script src="/assets/vue/vue.js" type="text/javascript"></script>

@@ -108,7 +108,7 @@ exports.post = function(req, res, async) {
 							//Met à jour la valeur du joueur acheté
 							player.updateValue( 'buy', function() {
 								//Redirige vers l'équipe
-								res.redirect('/mon-equipe');
+								res.redirect('/mes-joueurs');
 							} );
 
 						}
